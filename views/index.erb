@@ -1,1 +1,1 @@
-<button>View All</button>
+<%= @list.map { |bookmark| bookmark.url }.join('<br>') %>
