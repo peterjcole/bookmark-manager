@@ -11,6 +11,14 @@ describe Bookmark do
     end
   end
 
+  describe '#title' do
+    it 'has a title' do
+      bookmark = Bookmark.new('http://example.com', 'Example title')
+      expect(bookmark.title).to eq('Example title')
+
+    end
+  end
+
   describe '.all' do
     it '.all returns an array of bookmarks' do
       output = Bookmark.all
@@ -29,12 +37,19 @@ describe Bookmark do
   end
 
   describe '.create' do
-    it 'adds a bookmark to the database' do
+    it 'adds a bookmark to the database with a URL only' do
       url = 'http://example.com'
       Bookmark.create(url)
       test_query = 'SELECT * FROM bookmarks WHERE id = 4;'
-      expect(DatabaseConnection.query(test_query).values[0][1]).to eq(url)
+      expect(DatabaseConnection.query(test_query)[0]['url']).to eq(url)
     end
-
+    it 'adds a bookmark to the database with a URL and a title' do
+      url = 'http://example.com'
+      title = 'Example title'
+      Bookmark.create(url, title)
+      test_query = 'SELECT * FROM bookmarks WHERE id = 4;'
+      expect(DatabaseConnection.query(test_query)[0]['url']).to eq(url)
+      expect(DatabaseConnection.query(test_query)[0]['title']).to eq(title)
+    end
   end
 end

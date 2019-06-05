@@ -2,10 +2,11 @@ require 'pg'
 require_relative 'database_connection'
 
 class Bookmark
-  attr_reader :url
+  attr_reader :url, :title
 
-  def initialize(url)
+  def initialize(url, title = "")
     @url = url
+    @title = title
   end
   
   def self.all
@@ -13,8 +14,8 @@ class Bookmark
     result.map{ |bookmark| Bookmark.new(bookmark['url']) }
   end
 
-  def self.create(url)
-    insert_query = "INSERT INTO bookmarks(url) VALUES ('#{url}');"
+  def self.create(url, title = "")
+    insert_query = "INSERT INTO bookmarks(url, title) VALUES ('#{url}', '#{title}');"
     DatabaseConnection.query(insert_query)
   end
 end
