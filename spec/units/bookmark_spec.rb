@@ -61,8 +61,16 @@ describe Bookmark do
       title = 'Example title'
       Bookmark.create(url, title)
       test_query = 'SELECT * FROM bookmarks WHERE id = 4;'
-      expect(DatabaseConnection.query(test_query)[0]['url']).to eq(url)
-      expect(DatabaseConnection.query(test_query)[0]['title']).to eq(title)
+      expect(query_bookmarks[3]['url']).to eq(url)
+      expect(query_bookmarks[3]['title']).to eq(title)
+    end
+  end
+
+  describe '.delete' do
+    it 'deletes a bookmark by ID' do
+      Bookmark.delete(1)
+      expect(query_bookmarks.column_values(0)).not_to include('1')
+      expect(query_bookmarks.values.flatten).not_to include('http://www.makersacademy.com')
     end
   end
 end
