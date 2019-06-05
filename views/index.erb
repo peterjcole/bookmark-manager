@@ -1,1 +1,1 @@
-<%= @list.map { |bookmark| bookmark.url }.join('<br>') %>
+<%= @list.map { |bookmark| "#{bookmark.title} - #{bookmark.url}" }.join('<br>') %>

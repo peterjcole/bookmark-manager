@@ -34,6 +34,11 @@ describe Bookmark do
       expect(output[1].url).to eq(example_2)
       expect(output[2].url).to eq(example_3)
     end
+
+    it '.all returns bookmarks with titles' do
+      output = Bookmark.all
+      expect(output[0].title).to eq('Makers') 
+    end
   end
 
   describe '.create' do
