@@ -11,6 +11,13 @@ feature 'bookmark_manager' do
       expect(page).to have_content "http://www.google.com"
       expect(page).to have_content "http://www.destroyallsoftware.com"
     end
+
+    scenario 'bookmark URLs are links' do
+      visit('/')
+      expect(page).to have_link "http://www.makersacademy.com"
+      expect(page).to have_link "http://www.google.com"
+      expect(page).to have_link "http://www.destroyallsoftware.com"
+    end
     
   end
 
