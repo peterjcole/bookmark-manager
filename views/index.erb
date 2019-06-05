@@ -1,1 +1,13 @@
-<%= @list.map { |bookmark| "#{bookmark.title} - <a href=\"#{bookmark.url}\">#{bookmark.url}</a>" }.join('<br>') %>
+<ul>
+  <% @list.each do|bookmark| %>
+    <li class='bookmark'>
+      <%= bookmark.title %> - 
+      <a href="<%= bookmark.url %>">
+        <%= bookmark.url %>
+      </a>
+      <form action='/delete' method='DELETE'>
+        <button type='submit'>Delete</button>
+      </form>
+    </li>
+  <% end %>
+</ul>

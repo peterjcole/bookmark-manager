@@ -1,7 +1,10 @@
 feature 'bookmark_manager' do
+  before(:each) do
+    truncates
+    add_bookmarks
+  end
+
   feature 'view all bookmarks' do
-    background { truncates }
-    background { add_bookmarks }
     Capybara.default_driver = :selenium
     Capybara.server = :webrick
 
@@ -18,7 +21,6 @@ feature 'bookmark_manager' do
       expect(page).to have_link "http://www.google.com"
       expect(page).to have_link "http://www.destroyallsoftware.com"
     end
-    
   end
 
   feature 'adding bookmarks' do
@@ -36,7 +38,20 @@ feature 'bookmark_manager' do
       click_button('Add')
       expect(page).to have_content "http://nomnoml.com"
       expect(page).to have_content "Here is the nomnoml title"
+    end
+  end
 
+  feature 'deleting bookmarks' do
+    scenario 'delete buttons are present on bookmark list for each bookmark' do
+      visit '/'
+      expect(page).to have_button('Delete', count: 3)
+    end
+
+    scenario 'deleting the first bookmarks makes it disappear' do
+      pending('Refactor Bookmark to contain ID, implement Bookmark.delete')
+      first('.bookmark').click_button('Delete')
+      expect(page).not_to have_content('http://www.makersacademy.com')
+      expect(page).not_to have_content('Makers')
     end
   end
 end
