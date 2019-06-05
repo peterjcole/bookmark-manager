@@ -3,30 +3,33 @@ require 'bookmark'
 describe Bookmark do
   before(:each) { truncates }
   before(:each) { add_bookmarks }
+  let(:bookmark) { Bookmark.new(1, 'http://example.com', 'Example title') }
 
   describe '#url' do
     it 'has a url' do
-      bookmark = Bookmark.new('http://example.com')
       expect(bookmark.url).to eq('http://example.com')
     end
   end
 
   describe '#title' do
     it 'has a title' do
-      bookmark = Bookmark.new('http://example.com', 'Example title')
       expect(bookmark.title).to eq('Example title')
+    end
+  end
 
+  describe '#id' do
+    it 'has an id' do
+      expect(bookmark.id).to be 1
     end
   end
 
   describe '.all' do
-    it '.all returns an array of bookmarks' do
-      output = Bookmark.all
+    let(:output) { Bookmark.all }
+    it 'returns an array of bookmarks' do
       expect(output).to satisfy { output.all?(Bookmark) }
     end
 
-    it '.all returns the test bookmarks' do
-      output = Bookmark.all
+    it 'returns the test bookmarks' do
       example_1 = "http://www.makersacademy.com"
       example_2 = "http://www.destroyallsoftware.com"
       example_3 = "http://www.google.com"
@@ -35,9 +38,14 @@ describe Bookmark do
       expect(output[2].url).to eq(example_3)
     end
 
-    it '.all returns bookmarks with titles' do
-      output = Bookmark.all
+    it 'returns bookmarks with titles' do
       expect(output[0].title).to eq('Makers') 
+    end
+
+    it 'returns correct IDs' do
+      expect(output[0].id).to be 1
+      expect(output[1].id).to be 2
+      expect(output[2].id).to be 3
     end
   end
 
