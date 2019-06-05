@@ -48,7 +48,7 @@ feature 'bookmark_manager' do
     end
 
     scenario 'deleting the first bookmarks makes it disappear' do
-      pending('Refactor Bookmark to contain ID, implement Bookmark.delete')
+      visit '/'
       first('.bookmark').click_button('Delete')
       expect(page).not_to have_content('http://www.makersacademy.com')
       expect(page).not_to have_content('Makers')
