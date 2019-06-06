@@ -1,5 +1,6 @@
 <form action='/update' method='POST'>
   <input type=hidden name="id" value="<%= @id %>">
+  <input type='hidden' name='_method' value='PATCH'/>
   <input type='text' name="title">
   <button type='submit'>Save</button>
 </form>

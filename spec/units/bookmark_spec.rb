@@ -76,7 +76,7 @@ describe Bookmark do
 
   describe '.update' do
     it "updates a bookmark's title by id" do
-      Bookmark.update(1, "Coffee academy")
+      Bookmark.update(1, title: "Coffee academy")
       expect(query_bookmarks[0]['title']).to eq('Coffee academy')
     end
   end

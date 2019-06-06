@@ -50,6 +50,7 @@ feature 'bookmark_manager' do
     scenario 'deleting the first bookmarks makes it disappear' do
       visit '/'
       first('.bookmark').click_button('Delete')
+      expect(page.first('.bookmark')).to have_content('http://www.destroyallsoftware.com')
       expect(page).not_to have_content('http://www.makersacademy.com')
       expect(page).not_to have_content('Makers')
     end

@@ -4,6 +4,8 @@ require_relative './databaseconnection_setup.rb'
 
 class BookmarkManager < Sinatra::Base
 
+  enable :method_override
+
   get '/' do
     @list = Bookmark.all
     erb :index
@@ -18,7 +20,7 @@ class BookmarkManager < Sinatra::Base
     redirect('/')
   end
 
-  post '/delete' do
+  delete '/delete' do
     Bookmark.delete(params[:id])
     redirect('/')
   end
@@ -28,8 +30,8 @@ class BookmarkManager < Sinatra::Base
     erb :update
   end
 
-  post '/update' do
-    Bookmark.update(params[:id], params[:title])
+  patch '/update' do
+    Bookmark.update(params[:id], title: params[:title])
     redirect('/')
   end
 
