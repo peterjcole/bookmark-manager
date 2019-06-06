@@ -65,5 +65,13 @@ feature 'bookmark_manager' do
       expect(page).not_to have_content('Makers')
       expect(page).to have_content('Coffee Academy')
     end
+    scenario "first bookmark's url can be updated" do
+      visit '/'
+      first('.bookmark').click_button('Edit')
+      fill_in('url', with: 'http://coffeeacademy.biz')
+      click_button('Save')
+      expect(page).not_to have_content('http://www.makersacademy.com')
+      expect(page).to have_content('http://coffeeacademy.biz')
+    end
   end
 end

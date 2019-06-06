@@ -79,5 +79,24 @@ describe Bookmark do
       Bookmark.update(1, title: "Coffee academy")
       expect(query_bookmarks[0]['title']).to eq('Coffee academy')
     end
+
+    it "updates a bookmark's url by id" do
+      Bookmark.update(1, url: "http://coffeeacademy.biz")
+      expect(query_bookmarks[0]['url']).to eq('http://coffeeacademy.biz')
+    end
+
+    it 'can update both title and url at once' do
+      Bookmark.update(1, url: "http://coffeeacademy.biz", title: 'Coffee academy')
+      expect(query_bookmarks[0]['url']).to eq('http://coffeeacademy.biz')
+      expect(query_bookmarks[0]['title']).to eq('Coffee academy')
+    end
+  end
+
+  describe '.get' do
+    it 'returns the bookmark with the id specified' do
+      expect(Bookmark.get(1)).to be_a Bookmark
+      expect(Bookmark.get(1).title).to eq('Makers')
+      expect(Bookmark.get(1).url).to eq('http://www.makersacademy.com')
+    end
   end
 end

@@ -25,8 +25,13 @@ class Bookmark
     DatabaseConnection.query(delete_query)
   end
 
-  def self.update(id, title: nil)
-    update_query = "UPDATE bookmarks SET title = '#{title}' WHERE id = #{id};"
+  def self.update(id, title: nil, url: nil)
+    update_query = "UPDATE bookmarks SET title = '#{title}', url = '#{url}' WHERE id = #{id};"
     DatabaseConnection.query(update_query)
+  end
+
+  def self.get(id)
+    bookmark = DatabaseConnection.query("SELECT * FROM bookmarks WHERE id = #{id};")[0]
+    Bookmark.new(bookmark['id'], bookmark['url'], bookmark['title'])
   end
 end
