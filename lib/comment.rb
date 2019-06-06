@@ -9,4 +9,9 @@ class Comment
     insert_query = "INSERT INTO comments(bookmark_id, text) VALUES ('#{bookmark_id}', '#{text}');"
     DatabaseConnection.query(insert_query)
   end
+
+  def self.where(bookmark_id: nil)
+    result = DatabaseConnection.query("SELECT * FROM comments WHERE bookmark_id = #{bookmark_id}")
+    result.map { |comment| Comment.new(comment['id'], comment['text']) }
+  end
 end

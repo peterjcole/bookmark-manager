@@ -30,4 +30,14 @@ describe Comment do
     end
   end
 
+  describe '.where' do
+    it 'returns an array of comments' do
+      expect(Comment.where(bookmark_id: 1)).to be_a Array
+      expect(Comment.where(bookmark_id: 1)).to satisfy { |array| array.all?(Comment) }
+    end
+
+    it 'retrieves the comments associated with the provided bookmark ID' do
+      expect(Comment.where(bookmark_id: 1)[0].text).to eq('Learn to code!')
+    end
+  end
 end

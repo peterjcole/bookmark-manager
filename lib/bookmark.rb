@@ -11,9 +11,8 @@ class Bookmark
     @title = title
   end
   
-  def comments
-    result = DatabaseConnection.query("SELECT * FROM comments WHERE bookmark_id = #{@id}")
-    result.map { |comment| Comment.new(comment['id'], comment['text']) }
+  def comments(comment_class = Comment)
+    comment_class.where(bookmark_id: @id)
   end
 
   def self.all

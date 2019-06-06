@@ -109,13 +109,12 @@ describe Bookmark do
   end
   
   describe '#comments' do
-    it 'returns an array of comments' do
-      expect(bookmark.comments).to be_a Array
-      expect(bookmark.comments).to satisfy { |array| array.all?(Comment) }
-    end
 
-    it 'returns comments associated with its bookmark id' do
-      expect(bookmark.comments[0].text).to eq('Learn to code!')
+    let(:comment_class) { double(:comment_class) }
+
+    it 'calls .where on the Comment class' do
+      expect(comment_class).to receive(:where).with(bookmark_id: 1)
+      bookmark.comments(comment_class)
     end
   end
 end
