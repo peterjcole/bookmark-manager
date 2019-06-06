@@ -39,6 +39,23 @@ feature 'bookmark_manager' do
       expect(page).to have_content "http://nomnoml.com"
       expect(page).to have_content "Here is the nomnoml title"
     end
+
+    scenario 'error received when user adds a bookmark with an invalid URL' do
+      visit '/add'
+      fill_in('url', with: 'bloop')
+      fill_in('title', with: 'Title')
+      click_button('Add')
+      expect(page).to have_css('.error', text: 'Error: invalid URL')
+    end
+
+    scenario 'bookmark is not added when url is invalid' do
+      visit '/add'
+      fill_in('url', with: 'bloop')
+      fill_in('title', with: 'Title')
+      click_button('Add')
+      visit '/'
+      expect(page).not_to have_content 'bloop'
+    end
   end
 
   feature 'deleting bookmarks' do

@@ -64,6 +64,11 @@ describe Bookmark do
       expect(query_bookmarks[3]['url']).to eq(url)
       expect(query_bookmarks[3]['title']).to eq(title)
     end
+    it 'returns false if URL is invalid' do
+      url = 'bloop'
+      title = 'Example title'
+      expect(Bookmark.create(url, title)).to be false
+    end
   end
 
   describe '.delete' do
@@ -99,4 +104,5 @@ describe Bookmark do
       expect(Bookmark.get(1).url).to eq('http://www.makersacademy.com')
     end
   end
+  
 end

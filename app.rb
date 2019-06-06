@@ -16,8 +16,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/add' do
-    Bookmark.create(params[:url], params[:title])
-    redirect('/')
+    Bookmark.create(params[:url], params[:title]) ? redirect('/') : redirect('/error')
   end
 
   delete '/delete' do
@@ -34,6 +33,10 @@ class BookmarkManager < Sinatra::Base
   patch '/update' do
     Bookmark.update(params[:id], title: params[:title], url: params[:url])
     redirect('/')
+  end
+
+  get '/error' do
+    erb :error
   end
 
   run! if app_file == $0

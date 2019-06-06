@@ -16,6 +16,7 @@ class Bookmark
   end
 
   def self.create(url, title = "")
+    return false unless %r{[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)}i.match(url)
     insert_query = "INSERT INTO bookmarks(url, title) VALUES ('#{url}', '#{title}');"
     DatabaseConnection.query(insert_query)
   end
