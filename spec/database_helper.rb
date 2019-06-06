@@ -7,6 +7,6 @@ def add_bookmarks
 end
 
 def query_bookmarks
-  test_query = 'SELECT * FROM bookmarks'
+  test_query = 'SELECT * FROM bookmarks ORDER BY id'
   DatabaseConnection.query(test_query)
 end

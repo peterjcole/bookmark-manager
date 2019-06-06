@@ -54,4 +54,15 @@ feature 'bookmark_manager' do
       expect(page).not_to have_content('Makers')
     end
   end
+
+  feature 'updating bookmarks' do
+    scenario "first bookmark's title can be updated" do
+      visit '/'
+      first('.bookmark').click_button('Edit')
+      fill_in('title', with: 'Coffee Academy')
+      click_button('Save')
+      expect(page).not_to have_content('Makers')
+      expect(page).to have_content('Coffee Academy')
+    end
+  end
 end

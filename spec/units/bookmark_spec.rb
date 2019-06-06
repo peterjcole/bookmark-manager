@@ -73,4 +73,11 @@ describe Bookmark do
       expect(query_bookmarks.values.flatten).not_to include('http://www.makersacademy.com')
     end
   end
+
+  describe '.update' do
+    it "updates a bookmark's title by id" do
+      Bookmark.update(1, "Coffee academy")
+      expect(query_bookmarks[0]['title']).to eq('Coffee academy')
+    end
+  end
 end

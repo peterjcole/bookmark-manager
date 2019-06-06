@@ -24,4 +24,9 @@ class Bookmark
     delete_query = "DELETE FROM bookmarks WHERE id = #{id}"
     DatabaseConnection.query(delete_query)
   end
+
+  def self.update(id, title)
+    update_query = "UPDATE bookmarks SET title = '#{title}' WHERE id = #{id};"
+    DatabaseConnection.query(update_query)
+  end
 end
