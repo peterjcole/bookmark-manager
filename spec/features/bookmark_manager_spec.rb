@@ -1,12 +1,13 @@
-feature 'bookmark_manager' do
+feature 'bookmarks' do
   before(:each) do
-    truncates
+    truncate_tables
     add_bookmarks
   end
+  Capybara.default_driver = :selenium
+  Capybara.server = :webrick
+
 
   feature 'view all bookmarks' do
-    Capybara.default_driver = :selenium
-    Capybara.server = :webrick
 
     scenario 'user can see bookmark URLs' do
       visit('/')
@@ -89,6 +90,26 @@ feature 'bookmark_manager' do
       click_button('Save')
       expect(page).not_to have_content('http://www.makersacademy.com')
       expect(page).to have_content('http://coffeeacademy.biz')
+    end
+  end
+end
+
+feature 'comments' do
+  before(:each) do
+    truncate_tables
+    add_bookmarks
+    add_comments
+  end
+  Capybara.default_driver = :selenium
+  Capybara.server = :webrick
+
+  feature 'creating comments' do
+    scenario 'first bookmark can be commented on' do
+      visit '/'
+      first('.bookmark').click_button('Add comment')
+      fill_in('text', with: 'Docking station??????')
+      click_button('Save')
+      expect(page).to have_content ('Docking station??????')
     end
   end
 end

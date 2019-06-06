@@ -14,6 +14,18 @@
         <input type=hidden name="id" value="<%= bookmark.id %>"">
         <button type='submit'>Edit</button>
       </form>
+      <form action='/comment' method='GET'>
+        <input type=hidden name="bookmark_id" value="<%= bookmark.id %>"">
+        <button type='submit'>Add comment</button>
+      </form>
+      <ul class='comments'>
+        <% bookmark.comments.each do |comment| %>
+          <li class='comment'>
+            <%= comment.text %>
+          </li>
+          <% end %>
+      </ul>
+        
     </li>
   <% end %>
 </ul>

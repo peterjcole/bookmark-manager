@@ -1,5 +1,6 @@
 require 'pg'
 require_relative 'database_connection'
+require_relative 'comment'
 
 class Bookmark
   attr_reader :id, :url, :title
@@ -10,6 +11,11 @@ class Bookmark
     @title = title
   end
   
+  def comments
+    result = DatabaseConnection.query("SELECT * FROM comments WHERE bookmark_id = #{@id}")
+    result.map { |comment| Comment.new(comment['id'], comment['text']) }
+  end
+
   def self.all
     result = DatabaseConnection.query('SELECT * FROM bookmarks;')
     result.map{ |bookmark| Bookmark.new(bookmark['id'], bookmark['url'], bookmark['title']) }

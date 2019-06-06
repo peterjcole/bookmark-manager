@@ -1,8 +1,11 @@
 require 'bookmark'
 
 describe Bookmark do
-  before(:each) { truncates }
-  before(:each) { add_bookmarks }
+  before(:each) do 
+    truncate_tables
+    add_bookmarks
+    add_comments
+  end
   let(:bookmark) { Bookmark.new(1, 'http://example.com', 'Example title') }
 
   describe '#url' do
@@ -105,4 +108,14 @@ describe Bookmark do
     end
   end
   
+  describe '#comments' do
+    it 'returns an array of comments' do
+      expect(bookmark.comments).to be_a Array
+      expect(bookmark.comments).to satisfy { |array| array.all?(Comment) }
+    end
+
+    it 'returns comments associated with its bookmark id' do
+      expect(bookmark.comments[0].text).to eq('Learn to code!')
+    end
+  end
 end

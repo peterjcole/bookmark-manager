@@ -39,5 +39,14 @@ class BookmarkManager < Sinatra::Base
     erb :error
   end
 
+  get '/comment' do
+    @bookmark_id = params[:bookmark_id]
+    erb :comment
+  end
+
+  post '/comment' do
+    Comment.create(params[:bookmark_id], text: params[:text])
+    redirect '/'
+  end
   run! if app_file == $0
 end
