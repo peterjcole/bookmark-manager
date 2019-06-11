@@ -1,0 +1,6 @@
+CREATE TABLE bookmark_tags (
+  id SERIAL PRIMARY KEY,
+  bookmark_id SERIAL REFERENCES bookmarks(id) ON UPDATE CASCADE,
+  tag_id SERIAL REFERENCES tags(id) ON UPDATE CASCADE ON DELETE CASCADE,
+  content VARCHAR(60)
+);

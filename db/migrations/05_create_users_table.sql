@@ -1,0 +1,7 @@
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(60),
+  password
+  tag_id SERIAL REFERENCES tags(id) ON UPDATE CASCADE ON DELETE CASCADE,
+  content VARCHAR(60)
+);
